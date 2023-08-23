@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Uber Receipt </title>
+</head>
+<body>
+    <style>
+        #wq{
+            text-align: center;
+            margin-top: 150px;
+            border: 1px solid black;
+            width: 100%;
+            border-radius: 50px;
+            box-shadow: 1px 1px 5px 1px ;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: rgb(238, 235, 235);
+        }
+        #tg{
+            font-size: 40px;
+            font-weight: bolder;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-bottom: 50px;
+        }
+        button{
+            width: 100px;
+            height: 50px;
+            border-radius: 50px;
+            box-shadow: 1px 0px 5px 1px ;
+            font-size: 17px;
+            font-weight: bold;
+        }
+        button:hover{
+            background: rgb(199, 197, 197);
+            color: black;
+        }
+        #thanks,#amount,#tax,#total{
+            font-weight: bolder;
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+    <div id="wq">
+        <h1>Uber Receipt System</h1>
+        <h2>Thanks for riding with Us.</h2>
+        <h3>Amount per minute is ₦600</h3>
+        <span id="thanks"></span> <br> <br>
+        <div id="tg">
+            <span id="min">00</span>
+            <span id=" colm">:</span>
+            <span id="sec">00</span>
+        </div>
+        <div>
+            <button id="start">Start</button>
+            <button id="stop" style="display: none;">Stop</button>
+        </div>
+        <div>
+            <span id="amount"></span> <span id="aprice"></span> <br> <br>
+            <span id="tax"></span><span id="tprice"></span> <br> <br>
+            <span id="total"></span><span id="oprice"></span>
+        </div>
+    </div>
+
+
+    <script>
+        let thank = document.getElementById('thanks');
+        let minn = document.getElementById('min');
+        let colmm = document.getElementById('colm');
+        let secc = document.getElementById('sec');
+        let startt = document.getElementById('start');
+        let stopp = document.getElementById('stop');
+        let first = document.getElementById('aprice');
+        let second = document.getElementById('tprice');
+        let third = document.getElementById('oprice');
+
+        let spi=0;
+        let k;
+        let stopengine;
+
+        function engine(){
+            ++spi;
+            let mi = parseInt(1/60);
+            let se = spi%60;
+            mi = (mi<10)? '0' +mi: mi;
+            se = (se<10)? '0' +se: se;
+
+            minn.innerHTML = mi;
+            secc.innerHTML = se;
+        };
+
+        function count (){
+            k =setInterval(engine, 1000);
+        }
+
+        function startengine(){
+            count();
+            startt.style.display= "none";
+            stopp.style.display="inline";
+        };
+
+        stopengine= function(){
+            clearInterval(k);
+            stopp.style.display="none";
+            startt.style.display="none";
+            document.getElementById('thanks').innerHTML= 'Thanks For Riding With Us, Here Is The Receipt.';
+            document.getElementById('thanks').style.color= 'green';
+            document.getElementById('amount').innerHTML= 'AMOUNT OF RIDE:';
+            document.getElementById('amount').style.color= 'black';
+            document.getElementById('tax').innerHTML= 'TAXES TO BE PAID:';
+            document.getElementById('tax').style.color= 'black';
+            document.getElementById('total').innerHTML= 'TOTAL AMOUNT:';
+            document.getElementById('total').style.color= 'black';
+
+            let dara = (600 * minn.innerHTML) + Math.floor((secc.innerHTML /60)* 600);
+            first.innerHTML = '₦' + ' ' + dara;
+            let pelu = (2 / 100) * (dara);
+            second.innerHTML ='₦' + ' ' + pelu;
+            let tobi = dara + pelu ;
+            third.innerHTML = '₦' + ' ' + tobi;
+        }
+        startt.addEventListener('click', startengine);
+        stopp.addEventListener('click', stopengine);
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+</body>
+</html>
